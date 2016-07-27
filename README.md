@@ -18,30 +18,35 @@
 
 ```
 signature Boolean {
-  type T
+  /*
+    a single type named This may be defined. It has special properties:
+      - using the module name M in type context is sugar for M.This
+      - Modular type-classes dispatch off of the This value
+  */
+  type This
 
   val true : Branch T
   val false : Branch T
 
-  val cata : T -> a -> a -> a
+  val cata : a -> a -> (T -> a)
 }
 
 module Boolean : Boolean {  
   sym True False
 
-  type T = +(True, False)
+  type This = +(True, False)
 
   val True = prism 'True
   val False = prism 'False
 
-  -- This is possible because True and False are defined as Prisms.
-  val cata t thn els = case cata of
+  // This is possible because True and False are defined as Prisms.
+  val cata thn els this = case cata of
     True -> thn
     False -> els
 }
 
 signature Point {
-  type T
+  type This
 
   val mk : Double -> Double -> t
 
@@ -52,7 +57,7 @@ signature Point {
 module Point : Point {
   sym X Y
 
-  type T = *(X : Double, Y : Double)
+  type This = Sum (X : Double, Y : Double)
 
   val mk x y = {X = x, Y = y}
 
@@ -61,7 +66,7 @@ module Point : Point {
 }
 
 signature Tuple {
-  type T a b
+  type This a b
 
   val mk : a -> b -> T a b
 
@@ -76,14 +81,37 @@ signature Tuple {
   val Snd : Lens (T a b) (T a x) b x
 }
 
-module Tuple {
+module Pair {
   sym Fst Snd
 
-  type T a b = *(Fst : a, Snd : b)
+  type Pair a b = Product (Fst : a, Snd : b)
 
   val mk a b = {Fst = a, Snd = b}
 
   val Fst = lens 'Fst
   val Snd = lens 'Snd
+}
+
+signature List {
+  type This a
+
+  val Nil : Branch (T a)
+  val Cons : This a +> Pair a (This a)
+
+  val cata : r -> (a -> r -> r) -> (This a -> r)
+}
+
+module List : List {
+  sym Nil Cons
+  type This a = Sum (Nil, Cons : Pair a (This a))
+
+  val Nil = prism 'Nil
+  val Cons = prism 'Cons
+
+  val cata nil cons = go where
+    go this = case this of
+      Nil -> nil
+      // This is possible because Fst and Snd are defined as Lenses
+      Cons {Pair.Fst = head, Pair.Snd = tail} -> cons head (go tail)
 }
 ```
