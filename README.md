@@ -17,52 +17,73 @@
 - Newtype deriving
 
 ```
-sig Example {
-  sym True False
-  type Bool = Sum (True, False)
-  true : Bool
-  false : Bool
+signature Boolean {
+  type T
 
-  type Point
-  point : Double -> Double -> Point
+  val true : Branch T
+  val false : Branch T
 
-  x : Lens Point Double
-  y : Lens Point Double
+  val cata : T -> a -> a -> a
 }
 
-module Example : Example {
-  
-  -- Fresh symbols can be generated within a module. They are locally unique.
+module Boolean : Boolean {  
   sym True False
 
-  -- The sum type symbol constructs an anonymous sum from a row. A row is a
-  -- disjoint set of symbols mapped to other types. If no mapping is given, 
-  -- Unit is assumed
-  type Bool = Sum (True, False)
+  type T = +(True, False)
 
-  -- Definitions and type ascriptions. If `a : A` the `a@X` syntax produces a 
-  -- value of type `Sum (X: A <> e)`. The type ascription fixes the value of 
-  -- `e`. (Anonymous sum)
-  true : Bool
-  true = @True
+  val True = prism 'True
+  val False = prism 'False
 
-  false : Bool
-  false = @False
+  -- This is possible because True and False are defined as Prisms.
+  val cata t thn els = case cata of
+    True -> thn
+    False -> els
+}
 
+signature Point {
+  type T
+
+  val mk : Double -> Double -> t
+
+  val X : T ~> Double
+  val Y : T ~> Double
+}
+
+module Point : Point {
   sym X Y
 
-  type Point = Product (X : Double, Y : Double)
+  type T = *(X : Double, Y : Double)
 
-  -- If `a:  A` then `{X = a}` produces a value of type 
-  -- `Product (X : A <> e)`. (Anonymous product)
-  point: Double -> Double -> Point
-  point x y = {X = x, Y = y}
+  val mk x y = {X = x, Y = y}
 
-  x : Lens Point Double
-  x = .X
+  val X = lens 'X
+  val Y = lens 'Y
+}
 
-  y : Lens Point Double
-  y = .Y
+signature Tuple {
+  type T a b
 
+  val mk : a -> b -> T a b
+
+  /*
+   Multiple type signatures can be given. Of the set of given type signatures, there must be a single most general signature which unifies with all others. Ultimately, this most general signature must check against the value.
+  */
+
+  val Fst : T a b ~> a
+  val Fst : Lens (T a b) (T x b) a x
+
+  val Snd : T a b ~> b
+  val Snd : Lens (T a b) (T a x) b x
+}
+
+module Tuple {
+  sym Fst Snd
+
+  type T a b = *(Fst : a, Snd : b)
+
+  val mk a b = {Fst = a, Snd = b}
+
+  val Fst = lens 'Fst
+  val Snd = lens 'Snd
 }
 ```
