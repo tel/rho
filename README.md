@@ -17,6 +17,16 @@
 - Newtype deriving
 
 ```
+module Examples {
+  sym A B C 
+
+  val trivialRecord : *(A : a | e)
+  val trivialRecord a = {A = a}
+
+  val trivialCorecord : +(A : a | e)
+  val trivialCorecord a = a @ A
+}
+
 signature Boolean {
   /*
     a single type named This may be defined. It has special properties:
@@ -84,7 +94,7 @@ signature Tuple {
 module Pair {
   sym Fst Snd
 
-  type Pair a b = Product (Fst : a, Snd : b)
+  type Pair a b = *(Fst : a, Snd : b)
 
   val mk a b = {Fst = a, Snd = b}
 
@@ -103,7 +113,7 @@ signature List {
 
 module List : List {
   sym Nil Cons
-  type This a = Sum (Nil, Cons : Pair a (This a))
+  type This a = Sum (Nil, Cons :  *(Head : a, Tail : This a))
 
   val Nil = prism 'Nil
   val Cons = prism 'Cons
