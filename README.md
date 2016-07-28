@@ -3,18 +3,26 @@
 
 *Rho* is a highly-experimental language that tries to bring together a few modern ideas for nice functional programming languages.
 
+Core bits
+
 - HM type inference
-- Strictness
+- Strict evaluation
+- Row types for anonymous records and corecords
+- Symbol types
+- Lenses and prisms
+
+Modularity bits
+
 - Higher-rank types
 - Modules
-- Row types
-- Lenses and prisms
-- Symbol types
+- Modular type classes (https://www.mpi-sws.org/~dreyer/papers/mtc/main-long.pdf)
+- Newtype deriving
+
+Convenience and legibility bits
+
 - Type holes
 - Good type errors
-- Modular type classes (https://www.mpi-sws.org/~dreyer/papers/mtc/main-long.pdf)
 - Multi-types
-- Newtype deriving
 
 ```
 module Examples {
