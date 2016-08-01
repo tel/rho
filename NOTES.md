@@ -10,6 +10,7 @@
 - [ ] Gundry, McBride, McKinna. [Type Inference in Context.](http://www.cs.ru.nl/~james/RESEARCH/msfp2010-paper.pdf) (2010) *Revisits classic HM-typing using the technique of structured contexts and information extension.*
 - [ ] Peyton Jones, Vytiniotis, Weirich, Shields. [Practical type inference for arbitrary-rank types.](http://research.microsoft.com/en-us/um/people/simonpj/papers/higher-rank/putting.pdf) (2001) *Frequently noted as a good introduction to the need for impredicative polymorphism (first class polymorphism).*
 - [ ] Rémy, Yakobowski. [From ML to MLF: Graphic Type Constraints with Efficient Type Inference.](http://gallium.inria.fr/~remy/mlf/Remy-Yakobowski@icfp08@proceedings.pdf) (2008) *Graphic explanation of revised MLF typing. Perhaps the best overview of the MLF system.*
+- [ ] Leijen. [HMF: Simple type inference for first-class polymorphism.](http://research.microsoft.com/en-us/um/people/daan/download/papers/hmf-tr.pdf) (2008)
 - [ ] Herms. [Partial Type Inference with Higher-Order Types](http://gallium.inria.fr/~remy/mlf/herms@master2009.pdf) (2009)
 - [ ] Leijen. [Flexible types: Robust type inference for first-class polymorphism.](http://research.microsoft.com/en-us/um/people/daan/download/papers/hml-tr.pdf) (2008) *Introduces HML, a slightly simplified implementation of MLF.*
 - [ ] Leijen. [First-class polymorphism with existential types.](http://research.microsoft.com/en-us/um/people/daan/download/papers/existentials.pdf) (2006) 
