@@ -20,3 +20,7 @@
 - [ ] Leijen. [Extensible records with scoped labels.](http://www.cs.ioc.ee/tfp-icfp-gpce05/tfp-proc/21num.pdf) (2005)
 - [ ] Le Botlan, Rémy. [Recasting MLF.](http://gallium.inria.fr/~remy/mlf/recasting-mlf-RR.pdf) (2008) *Explanation of MLF in terms of a slightly simplified Shallow MLF which has better semantic properties. MLF is a certain kind of cream-of-the-crop first-class polymorphism type checking system.*
 - [ ] Gaster, Jones. [A Polymorphic Type System for Extensible Records and Variants.](https://www.cs.cmu.edu/~aldrich/courses/819/papers/row-poly.pdf) (1996)
+
+- [ ] Leijen. [Koka: Programming with Row Polymorphic Effect Types.](https://www.microsoft.com/en-us/research/publication/koka-programming-with-row-polymorphic-effect-types-2/) (2014)
+- [ ] Tate, Leijen, Lerner. [A Flexible Semantic Framework for Effects.](https://www.microsoft.com/en-us/research/publication/a-flexible-semantic-framework-for-effects/) (2010)
+- [ ] Leijen, Tate. [Convenient Explicit Effects using Type Inference with Subeffects.](https://www.microsoft.com/en-us/research/publication/convenient-explicit-effects-using-type-inference-with-subeffects/) (2010)
